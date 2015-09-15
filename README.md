@@ -11,18 +11,30 @@ npm i -D metalsmith-basename
 
 ## Usage
 
-Example usage of plugin with others:
+Example usage of plugin with others.
 
-```shell
+Installation:
+```sh
 npm i -D metalsmith \
+  harmonize \
   gulp-load-plugins \
   metalsmith-collections \
-  metalsmith-remarkable \
+  metalsmith-markdown-remarkable \
   metalsmith-permalinks \
   metalsmith-basename 
 ```
 
+Documents:
+```sh
+src/
+  my-document.md
+  my another document.md
+package.json
+```
+
+Building:
 ```javascript
+require('harmonize')();
 var Metalsmith = require('metalsmith');
 var loadPlugins = require('gulp-load-plugins');
 
@@ -35,10 +47,10 @@ var plugins = loadPlugins({
 new Metalsmith(__dirname)
   .use(plugins.collections({
     articles: {
-      pattern: '**/*.md',
+      pattern: 'src/**/*.md',
       sortBy: 'date',
       reverse: true
-    }))
+    }}))
   .use(plugins.markdownRemarkable({
     html: true
   }))
@@ -52,5 +64,19 @@ new Metalsmith(__dirname)
       console.error(err);
     }
   });
-
 ```
+
+Output:
+```sh
+build/
+  my-document.html
+  my-another-document.md
+src/
+  my-document.md
+  my another document.md
+package.json
+```
+
+# License
+
+MIT licensed
