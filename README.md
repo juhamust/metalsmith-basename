@@ -11,6 +11,12 @@ npm i -D metalsmith-basename
 
 ## Usage
 
+`metalsmith-basename([matchers])`
+
+Where matchers is optional, but makes it possible to process only selected documents. Example: `basename(['**', '!test-**.md'])`
+
+## Example
+
 Example usage of plugin with others.
 
 Installation:
@@ -77,6 +83,6 @@ src/
 package.json
 ```
 
-# License
+## License
 
 MIT licensed

@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-basename",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Add collection filenames without extention into metadata",
   "main": "lib.js",
   "scripts": {
@@ -14,10 +14,10 @@
   "author": "Juha Mustonen <juha.mustonen@iki.fi>",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "multimatch": "^2.0.0"
   },
   "devDependencies": {
-    "harmonize": "^1.4.4",
     "jasmine": "^2.3.2"
   }
 }
