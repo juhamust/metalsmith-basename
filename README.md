@@ -3,17 +3,27 @@
 A [Metalsmith](http://www.metalsmith.io/) plugin that adds the collection
 files into metadata, making it available for example for [permalinks](https://github.com/segmentio/metalsmith-permalinks)
 
-## Installation
-
-```
+```shell
 npm i -D metalsmith-basename
 ```
 
-## Usage
+```javascript
+basename({
+  pattern: ['**/*.html'],
+  verbose: true
+})
+```
 
-`metalsmith-basename([matchers])`
+#### opts.pattern (array)
 
-Where matchers is optional, but makes it possible to process only selected documents. Example: `basename(['**', '!test-**.md'])`
+Process only selected documents. Example:
+```
+basename({ pattern: ['**/*', '!test-**.md'] })
+```
+
+#### opts.verbose (boolean)
+
+Log the files that gets processed and skipped. Defaults to false.
 
 ## Example
 
@@ -60,7 +70,10 @@ new Metalsmith(__dirname)
   .use(plugins.markdownRemarkable({
     html: true
   }))
-  .use(plugins.basename())
+  .use(plugins.basename({
+    pattern: ['**/*.html'],
+    verbose: false
+  }))
   .use(plugins.permalinks({
     // Using basename as output path
     pattern: ':basename'

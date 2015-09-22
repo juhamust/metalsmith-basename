@@ -1,41 +1,51 @@
-var plugin = require('../lib');
+'use strict';
+
+require('harmonize')();
+var fs = require('fs');
+var path = require('path');
+var Metalsmith = require('metalsmith');
+var basename = require('../lib');
 
 describe("basename-plugin", function() {
-  var metalMock;
+  var metalsmith;
+  var tester = function(opts, done) {
+    return function(files, metalsmith, callback) {
+      expect(files[opts.file].basename).toBe(opts.expect);
+      done();
+    }
+  };
 
   beforeEach(function() {
-    // Create metalsmith mock
-    metalMock = {
-      _metadata: {
-        collections: {
-          articles: [{
-            title: 'Test document 1',
-            filename: 'pages/test-document.md'
-          }, {
-            title: 'Test document 2',
-            filename: 'test document 2.md'
-          }]
-        }
-      },
-      metadata: function() {
-        return metalMock._metadata;
-      }
-    };
+    metalsmith = Metalsmith(path.join(__dirname, 'fixtures/'));
   });
 
-  it('adds document basename in metadata', function() {
-    // Run the plugin against metalsmith mock
-    plugin()(['file.md'], metalMock, function(){});
-    // Verify outcome
-    expect(metalMock.metadata().collections['articles'][0].basename).toBe('test-document');
-    expect(metalMock.metadata().collections['articles'][1].basename).toBe('test-document-2');
+  it('adds document basename in metadata', function(done) {
+    metalsmith
+    .use(basename({
+      verbose: false,
+      pattern: ['**/*.txt']
+    }))
+    .use(tester({
+      file: 'document name.txt',
+      expect: 'document-name'
+    }, done))
+    .build(function(err) {
+      if (err) throw err;
+    });
   });
 
-  it('filters', function() {
-    // Run the plugin against metalsmith mock
-    plugin(['**', '!**2.md'])(['file.md'], metalMock, function(){});
-    // Verify outcome
-    expect(metalMock.metadata().collections['articles'][0].basename).toBe('test-document');
-    expect(metalMock.metadata().collections['articles'][1].basename).toBe(undefined);
+  it('uses pattern', function(done) {
+    metalsmith
+    .use(basename({
+      verbose: false,
+      pattern: ['**/*.md']
+    }))
+    .use(tester({
+      file: 'document name.txt',
+      expect: undefined
+    }, done))
+    .build(function(err) {
+      if (err) throw err;
+    });
   });
 });
