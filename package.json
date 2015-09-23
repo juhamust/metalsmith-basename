@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-basename",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Add basename of the file into metadata",
   "main": "lib/index.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "keywords": [
     "metalsmith",
     "filename",
+    "metadata",
     "basename"
   ],
   "author": "Juha Mustonen <juha.mustonen@iki.fi>",

@@ -1,7 +1,8 @@
 # metalsmith-basename
 
-A [Metalsmith](http://www.metalsmith.io/) plugin that adds the collection
-files into metadata, making it available for example for [permalinks](https://github.com/segmentio/metalsmith-permalinks)
+A [Metalsmith](http://www.metalsmith.io/) plugin that adds file's basename as a metadate for the file, 
+making it available for example for [permalinks](https://github.com/segmentio/metalsmith-permalinks) and helps
+to generate files based on it.
 
 ```shell
 npm i -D metalsmith-basename
@@ -17,8 +18,10 @@ basename({
 #### opts.pattern (array)
 
 Process only selected documents. Example:
-```
-basename({ pattern: ['**/*', '!test-**.md'] })
+```javascript
+basename({ 
+  pattern: ['**/*', '!test-**.md'] 
+})
 ```
 
 #### opts.verbose (boolean)
@@ -34,7 +37,6 @@ Installation:
 npm i -D metalsmith \
   harmonize \
   gulp-load-plugins \
-  metalsmith-collections \
   metalsmith-markdown-remarkable \
   metalsmith-permalinks \
   metalsmith-basename 
@@ -50,6 +52,7 @@ package.json
 
 Building:
 ```javascript
+// Harmonize is required with metalsmith when using node <= 0.12 
 require('harmonize')();
 var Metalsmith = require('metalsmith');
 var loadPlugins = require('gulp-load-plugins');
@@ -61,12 +64,6 @@ var plugins = loadPlugins({
 });
 
 new Metalsmith(__dirname)
-  .use(plugins.collections({
-    articles: {
-      pattern: 'src/**/*.md',
-      sortBy: 'date',
-      reverse: true
-    }}))
   .use(plugins.markdownRemarkable({
     html: true
   }))
