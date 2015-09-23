@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-basename",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Add basename of the file into metadata",
   "main": "lib/index.js",
   "scripts": {
