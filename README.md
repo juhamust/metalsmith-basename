@@ -85,8 +85,8 @@ new Metalsmith(__dirname)
 Output:
 ```sh
 build/
-  my-document.html
-  my-another-document.md
+  my-document/index.html
+  my-another-document/index.html
 src/
   my-document.md
   my another document.md
